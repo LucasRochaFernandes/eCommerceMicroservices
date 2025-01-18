@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\eCommerce.ProductApi.Communication\eCommerce.ProductApi.Communication.csproj" />
+    <ProjectReference Include="..\eCommerce.ProductApi.Domain\eCommerce.ProductApi.Domain.csproj" />
+    <ProjectReference Include="..\eCommerce.SharedLibrary\eCommerce.SharedLibrary.csproj" />
+  </ItemGroup>
+
+</Project>

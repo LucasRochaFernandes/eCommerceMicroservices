@@ -7,7 +7,7 @@ using System.Text;
 namespace eCommerce.SharedLibrary.Extensions.Authentication;
 public static class AuthenticationScheme
 {
-    public static IServiceCollection AddAuthenticationScheme(this IServiceCollection services, IConfiguration configuration)
+    public static void AddAuthenticationScheme(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
              .AddJwtBearer(options =>
@@ -27,6 +27,5 @@ public static class AuthenticationScheme
                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["SecretKey"]!))
                  };
              });
-        return services;
     }
 }

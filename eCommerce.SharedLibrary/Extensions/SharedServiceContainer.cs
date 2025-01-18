@@ -7,10 +7,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
 namespace eCommerce.SharedLibrary.Extensions;
-public static class AppContainer
+public static class SharedServiceContainer
 {
-    public static IServiceCollection AddSharedServices<IContext>
-        (this IServiceCollection services, IConfiguration config) where IContext : DbContext
+    public static void AddSharedServices<IContext>
+        (this IServiceCollection services, IConfiguration config, string logsFileName) where IContext : DbContext
     {
         services.AddDbContext<IContext>(options =>
         {
@@ -24,7 +24,7 @@ public static class AppContainer
             .MinimumLevel.Information()
             .WriteTo.Debug()
             .WriteTo.Console()
-            .WriteTo.File(path: "databaseLogs.txt",
+            .WriteTo.File(path: logsFileName,
                 restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information,
                 outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}",
                 rollingInterval: RollingInterval.Day)
@@ -32,14 +32,11 @@ public static class AppContainer
 
         AuthenticationScheme.AddAuthenticationScheme(services, config);
 
-        return services;
-
     }
 
-    public static IApplicationBuilder UseSharedMiddlewares(this IApplicationBuilder app)
+    public static void AddSharedMiddlewares(this IApplicationBuilder app)
     {
         app.UseMiddleware<GlobalException>();
         app.UseMiddleware<RequireApiGateway>();
-        return app;
     }
 }
