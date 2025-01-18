@@ -4,10 +4,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace eCommerce.SharedLibrary.Extensions;
-public static class AuthenticationSchemeExtensions
+namespace eCommerce.SharedLibrary.Extensions.Authentication;
+public static class AuthenticationScheme
 {
-    public static void AddAuthenticationScheme(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddAuthenticationScheme(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
              .AddJwtBearer(options =>
@@ -27,5 +27,6 @@ public static class AuthenticationSchemeExtensions
                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["SecretKey"]!))
                  };
              });
+        return services;
     }
 }
