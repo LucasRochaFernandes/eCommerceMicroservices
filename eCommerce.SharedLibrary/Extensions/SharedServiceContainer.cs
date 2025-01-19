@@ -12,12 +12,9 @@ public static class SharedServiceContainer
     public static void AddSharedServices<IContext>
         (this IServiceCollection services, IConfiguration config, string logsFileName) where IContext : DbContext
     {
-        services.AddDbContext<IContext>(options =>
-        {
-            options.UseSqlServer(
-                config.GetConnectionString("DefaultConnection"),
-                sqlServerOpt => sqlServerOpt.EnableRetryOnFailure());
-        });
+        services.AddDbContext<IContext>();
+
+
 
         // configure serilog logging
         Log.Logger = new LoggerConfiguration()
@@ -31,12 +28,11 @@ public static class SharedServiceContainer
             .CreateLogger();
 
         AuthenticationScheme.AddAuthenticationScheme(services, config);
-
     }
 
     public static void AddSharedMiddlewares(this IApplicationBuilder app)
     {
         app.UseMiddleware<GlobalException>();
-        app.UseMiddleware<RequireApiGateway>();
+        //app.UseMiddleware<RequireApiGateway>();
     }
 }

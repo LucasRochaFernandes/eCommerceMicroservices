@@ -1,16 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.11" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.11" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\eCommerce.ProductApi.Application\eCommerce.ProductApi.Application.csproj" />
     <ProjectReference Include="..\eCommerce.ProductApi.Domain\eCommerce.ProductApi.Domain.csproj" />
     <ProjectReference Include="..\eCommerce.SharedLibrary\eCommerce.SharedLibrary.csproj" />
   </ItemGroup>
