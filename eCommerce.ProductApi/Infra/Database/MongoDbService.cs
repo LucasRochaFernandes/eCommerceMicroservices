@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 
 namespace eCommerce.ProductApi.Infrastructure.Database;
 public class MongoDbService

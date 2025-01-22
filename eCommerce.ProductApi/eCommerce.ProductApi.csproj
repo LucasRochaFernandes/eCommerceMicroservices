@@ -9,6 +9,8 @@
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
 	<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.11" />
+	<PackageReference Include="MongoDB.Driver" Version="3.1.0" />
+	<PackageReference Include="AutoMapper" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\eCommerce.ProductApi.Infrastructure\eCommerce.ProductApi.Infrastructure.csproj" />
+    <ProjectReference Include="..\eCommerce.SharedLibrary\eCommerce.SharedLibrary.csproj" />
   </ItemGroup>
 
 </Project>

@@ -3,9 +3,6 @@ using eCommerce.ProductApi.Domain.Entities;
 using eCommerce.ProductApi.Infrastructure.Repositories;
 using eCommerce.SharedLibrary.Extensions;
 using eCommerce.SharedLibrary.Interfaces;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace eCommerce.ProductApi.Infrastructure.Extensions;
 public static class ProductApiInfrastructureContainer
