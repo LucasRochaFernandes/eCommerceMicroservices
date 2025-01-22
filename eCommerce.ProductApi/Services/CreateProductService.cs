@@ -14,7 +14,7 @@ public class CreateProductService
     {
         _productRepository = productRepository;
     }
-    public async Task<Guid> Execute(ProductRequest request)
+    public async Task<Product> Execute(ProductRequest request)
     {
         var mapper = new MapperConfiguration(cfg =>
         {
@@ -27,6 +27,7 @@ public class CreateProductService
         {
             throw new ConflictException("Product already exists");
         }
-        return await _productRepository.CreateAsync(productEntity);
+        await _productRepository.CreateAsync(productEntity);
+        return productEntity;
     }
 }

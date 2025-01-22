@@ -1,0 +1,20 @@
+2025-01-22 13:31:59.738 -03:00 [INF] Missing type map configuration or unsupported mapping.
+
+Mapping types:
+ProductRequest -> PubProductCreatedMessage
+eCommerce.ProductApi.Communication.Requests.ProductRequest -> eCommerce.ProductApi.Communication.Requests.PubProductCreatedMessage
+2025-01-22 13:31:59.759 -03:00 [WRN] Missing type map configuration or unsupported mapping.
+
+Mapping types:
+ProductRequest -> PubProductCreatedMessage
+eCommerce.ProductApi.Communication.Requests.ProductRequest -> eCommerce.ProductApi.Communication.Requests.PubProductCreatedMessage
+2025-01-22 13:32:38.492 -03:00 [INF] Product already exists
+2025-01-22 13:32:38.515 -03:00 [WRN] Product already exists
+2025-01-22 13:33:15.805 -03:00 [INF] eCommerce.ProductApi.Communication.Requests.PubProductCreatedMessage needs to have a constructor with 0 args or only optional args. Validate your configuration for details. (Parameter 'type')
+2025-01-22 13:33:15.807 -03:00 [WRN] eCommerce.ProductApi.Communication.Requests.PubProductCreatedMessage needs to have a constructor with 0 args or only optional args. Validate your configuration for details. (Parameter 'type')
+2025-01-22 13:34:41.228 -03:00 [INF] Product already exists
+2025-01-22 13:34:41.250 -03:00 [WRN] Product already exists
+2025-01-22 13:34:49.874 -03:00 [INF] eCommerce.ProductApi.Communication.Requests.PubProductCreatedMessage needs to have a constructor with 0 args or only optional args. Validate your configuration for details. (Parameter 'type')
+2025-01-22 13:34:49.875 -03:00 [WRN] eCommerce.ProductApi.Communication.Requests.PubProductCreatedMessage needs to have a constructor with 0 args or only optional args. Validate your configuration for details. (Parameter 'type')
+2025-01-22 13:43:16.234 -03:00 [INF] Product already exists
+2025-01-22 13:43:16.256 -03:00 [WRN] Product already exists

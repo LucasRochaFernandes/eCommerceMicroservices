@@ -1,7 +1,5 @@
 ﻿using eCommerce.OrderApi.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace eCommerce.OrderApi.Infrastructure.Database;
 public class OrderApiDbContext : DbContext
@@ -22,6 +20,40 @@ public class OrderApiDbContext : DbContext
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
             optionsBuilder.UseSqlServer(connectionString);
         }
+    }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
 
+        modelBuilder.Entity<OrderProduct>()
+                .HasKey(op => new { op.OrderId, op.ProductId });
+
+        modelBuilder.Entity<OrderProduct>()
+            .HasOne(op => op.Order)
+            .WithMany(o => o.OrderProducts)
+            .HasForeignKey(op => op.OrderId);
+
+        modelBuilder.Entity<OrderProduct>()
+            .HasOne(op => op.Product)
+            .WithMany()
+            .HasForeignKey(op => op.ProductId);
+
+        modelBuilder.Entity<OrderProduct>()
+           .HasOne(op => op.Product)
+           .WithMany()
+           .HasForeignKey(op => op.ProductId);
+
+        modelBuilder.Entity<Order>()
+            .HasOne(o => o.User)
+            .WithMany(u => u.Orders)
+            .HasForeignKey(o => o.UserId);
+
+        modelBuilder.Entity<Order>()
+            .Property(o => o.OrderStatus)
+            .HasConversion<string>();
+
+        modelBuilder.Entity<Order>()
+            .Property(o => o.PaymentStatus)
+            .HasConversion<string>();
     }
 }

@@ -10,5 +10,6 @@ public class ProductProfile : Profile
     {
         CreateMap<ProductRequest, Product>();
         CreateMap<Product, ProductResponse>();
+        CreateMap<Product, PubProductCreatedMessage>();
     }
 }

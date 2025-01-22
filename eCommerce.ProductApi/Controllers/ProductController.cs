@@ -1,5 +1,6 @@
 ﻿using eCommerce.ProductApi.Application.Services;
 using eCommerce.ProductApi.Communication.Requests;
+using eCommerce.ProductApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eCommerce.ProductApi.Controllers;
@@ -10,9 +11,11 @@ public class ProductController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Post(
         [FromBody] ProductRequest body,
-        [FromServices] CreateProductService createProductService)
+        [FromServices] CreateProductService createProductService,
+        [FromServices] PubProductCreatedService pubProductCreatedService)
     {
         var result = await createProductService.Execute(body);
+        await pubProductCreatedService.Execute(result);
         return Created(string.Empty, new { Id = result });
     }
     [HttpGet]

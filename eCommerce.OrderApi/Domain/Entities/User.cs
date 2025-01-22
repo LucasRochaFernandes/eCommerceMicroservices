@@ -6,4 +6,5 @@ public class User
     public string CEP { get; set; }
     public string FullAddress { get; set; }
     public string PhoneNumber { get; set; }
+    public ICollection<Order> Orders { get; set; }
 }
