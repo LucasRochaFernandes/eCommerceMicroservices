@@ -10,7 +10,6 @@ public class Order
     public OrderStatus OrderStatus { get; set; } = OrderStatus.Pending;
     public PaymentStatus PaymentStatus { get; set; } = PaymentStatus.Pending;
     public ICollection<OrderProduct> OrderProducts { get; set; }
-    public ICollection<Product> Products => OrderProducts.Select(op => op.Product).ToList();
 }
 
 

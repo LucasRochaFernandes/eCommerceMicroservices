@@ -12,7 +12,7 @@ public static class ProductApiInfrastructureContainer
 {
     public static void AddInfrastructureServices(this IServiceCollection services, IConfiguration config)
     {
-        SharedServiceContainer.AddSharedServices<ProductApiDbContext>(services, config, "ProductApi-Infra-Logs");
+        SharedServiceContainer.AddSharedServices(services, config, "ProductApi-Infra-Logs");
         services.AddScoped<IGenericRepository<Product>, ProductRepository>();
         services.AddScoped<CreateProductService>();
         services.AddScoped<GetAllProductsService>();

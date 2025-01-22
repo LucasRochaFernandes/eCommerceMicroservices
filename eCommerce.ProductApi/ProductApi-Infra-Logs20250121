@@ -1,0 +1,2 @@
+2025-01-21 21:45:24.962 -03:00 [INF] The property 'Stock' of type 'eCommerce.ProductApi.Domain.Entities.Product' cannot use element name 'price' because it is already being used by property 'Price'.
+2025-01-21 21:45:24.991 -03:00 [WRN] The property 'Stock' of type 'eCommerce.ProductApi.Domain.Entities.Product' cannot use element name 'price' because it is already being used by property 'Price'.

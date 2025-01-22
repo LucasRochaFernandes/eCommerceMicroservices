@@ -7,7 +7,7 @@ public record OrderDetailsResponse(
     [Required] string CEP,
     [Required] string FullAddress,
     [Required] string PhoneNumber,
-    [Required] IList<ProductResponse> Products,
+    [Required] IList<ProductOrderResponse> Products,
     [Required] decimal TotalPrice,
     [Required] DateTime OrderDateTime,
     [Required] PaymentStatus PaymentStatus,

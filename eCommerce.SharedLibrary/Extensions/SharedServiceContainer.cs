@@ -1,7 +1,6 @@
 ﻿using eCommerce.SharedLibrary.Extensions.Authentication;
 using eCommerce.SharedLibrary.Middlewares;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -9,12 +8,9 @@ using Serilog;
 namespace eCommerce.SharedLibrary.Extensions;
 public static class SharedServiceContainer
 {
-    public static void AddSharedServices<IContext>
-        (this IServiceCollection services, IConfiguration config, string logsFileName) where IContext : DbContext
+    public static void AddSharedServices
+        (this IServiceCollection services, IConfiguration config, string logsFileName)
     {
-        services.AddDbContext<IContext>();
-
-
 
         // configure serilog logging
         Log.Logger = new LoggerConfiguration()

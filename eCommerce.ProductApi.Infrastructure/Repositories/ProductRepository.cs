@@ -1,52 +1,54 @@
 ﻿using eCommerce.ProductApi.Domain.Entities;
+using eCommerce.ProductApi.Infrastructure.Database;
 using eCommerce.SharedLibrary.Interfaces;
-using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver;
 using System.Linq.Expressions;
 
 namespace eCommerce.ProductApi.Infrastructure.Repositories;
 
 public class ProductRepository : IGenericRepository<Product>
 {
-    private readonly ProductApiDbContext _dbContext;
+    private readonly IMongoCollection<Product> _productCollection;
 
-    public ProductRepository(ProductApiDbContext context)
+    public ProductRepository(MongoDbService mongoDbService)
     {
-        _dbContext = context;
+        _productCollection = mongoDbService.GetDatabase().GetCollection<Product>("products");
     }
 
     public async Task<Guid> CreateAsync(Product entity)
     {
-        var result = await _dbContext.Products.AddAsync(entity);
-        await _dbContext.SaveChangesAsync();
-        return result.Entity.Id;
+        await _productCollection.InsertOneAsync(entity);
+        return entity.Id;
     }
 
     public async Task DeleteAsync(Product entity)
     {
-        _dbContext.Products.Remove(entity);
-        await _dbContext.SaveChangesAsync();
+        var filter = Builders<Product>.Filter.Eq(p => p.Id, entity.Id);
+        await _productCollection.DeleteOneAsync(filter);
     }
 
     public async Task<Product?> FindByIdAsync(Guid id)
     {
-        var entity = await _dbContext.Products.FindAsync(id);
-        return entity;
+        var filter = Builders<Product>.Filter.Eq(p => p.Id, id);
+        var product = await _productCollection.Find(filter).FirstOrDefaultAsync();
+        return product;
     }
 
     public async Task<IEnumerable<Product>> GetAllAsync()
     {
-        return await _dbContext.Products.ToListAsync();
+        var products = await _productCollection.Find(p => true).ToListAsync();
+        return products;
     }
 
     public async Task<Product?> GetByAsync(Expression<Func<Product, bool>> predicate)
     {
-        var entity = await _dbContext.Products.FirstOrDefaultAsync(predicate);
-        return entity;
+        var product = await _productCollection.Find(predicate).FirstOrDefaultAsync();
+        return product;
     }
 
     public async Task UpdateAsync(Product entity)
     {
-        _dbContext.Products.Update(entity);
-        await _dbContext.SaveChangesAsync();
+        var filter = Builders<Product>.Filter.Eq(p => p.Id, entity.Id);
+        await _productCollection.ReplaceOneAsync(filter, entity);
     }
 }
