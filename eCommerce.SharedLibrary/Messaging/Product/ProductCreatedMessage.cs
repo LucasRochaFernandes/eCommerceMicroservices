@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace eCommerce.OrderApi.Communication.Requests;
-public record CreateProductRequest(
+namespace eCommerce.SharedLibrary.Messaging.Product;
+public record ProductCreatedMessage(
     [Required] Guid Id,
     [Required] decimal Price,
     [Required] int Stock

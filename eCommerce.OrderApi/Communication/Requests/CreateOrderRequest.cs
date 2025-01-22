@@ -8,4 +8,3 @@ public record CreateOrderRequest(
     [Required] IList<ProductOrderRequest> Products
 );
 
-

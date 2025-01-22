@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using eCommerce.ProductApi.Communication.Profiles;
-using eCommerce.ProductApi.Communication.Requests;
 using eCommerce.ProductApi.Domain.Entities;
+using eCommerce.SharedLibrary.Messaging.Product;
 using MassTransit;
 
 namespace eCommerce.ProductApi.Services;
@@ -21,7 +21,7 @@ public class PubProductCreatedService
         {
             cfg.AddProfile<ProductProfile>();
         }).CreateMapper();
-        var message = mapper.Map<PubProductCreatedMessage>(request);
+        var message = mapper.Map<ProductCreatedMessage>(request);
         await _bus.Publish(message);
     }
 }
