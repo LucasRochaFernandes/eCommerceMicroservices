@@ -15,6 +15,7 @@ public static class OrderApiInfrastructureContainer
         services.AddMassTransit(busConfig =>
         {
             busConfig.AddConsumer<SubProductCreatedService>();
+            busConfig.AddConsumer<SubProductStockUpdated>();
             busConfig.UsingRabbitMq((context, cfg) =>
             {
                 cfg.Host(config["RabbitMQ:Host"], h =>

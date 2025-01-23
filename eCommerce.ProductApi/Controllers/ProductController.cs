@@ -32,4 +32,16 @@ public class ProductController : ControllerBase
         await removeProductService.Execute(productId);
         return Ok();
     }
+    [HttpPatch("{productId}/stock")]
+    public async Task<IActionResult> UpdateStock(
+        [FromRoute] Guid productId,
+        [FromBody] NewProductStockRequest body,
+        [FromServices] UpdateProductStockService updateProductStockService,
+        [FromServices] PubProductStockUpdated pubProductStockUpdated)
+    {
+        await updateProductStockService.Execute(productId, body.NewStock);
+        await pubProductStockUpdated.Execute(productId, body.NewStock);
+        return Ok();
+    }
+
 }

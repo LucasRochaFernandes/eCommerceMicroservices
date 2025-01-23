@@ -27,7 +27,9 @@ public static class ProductApiInfrastructureContainer
         });
         services.AddScoped<IGenericRepository<Product>, ProductRepository>();
         services.AddScoped<CreateProductService>();
+        services.AddScoped<UpdateProductStockService>();
         services.AddScoped<PubProductCreatedService>();
+        services.AddScoped<PubProductStockUpdated>();
         services.AddScoped<GetAllProductsService>();
         services.AddScoped<RemoveProductService>();
     }
