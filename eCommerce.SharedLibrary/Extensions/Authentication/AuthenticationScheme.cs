@@ -27,5 +27,6 @@ public static class AuthenticationScheme
                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["SecretKey"]!))
                  };
              });
+        services.AddAuthorization();
     }
 }

@@ -1,8 +1,13 @@
 ﻿using eCommerce.OrderApi.Application.Services;
 using eCommerce.OrderApi.Communication.Requests;
+using eCommerce.SharedLibrary.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace eCommerce.OrderApi.Controllers;
+
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class OrderController : ControllerBase
@@ -12,17 +17,25 @@ public class OrderController : ControllerBase
         [FromBody] CreateOrderRequest request,
         [FromServices] CreateOrderService createOrderService)
     {
-        var orderId = await createOrderService.Execute(request);
+        var userEmail = HttpContext.User.FindFirst(ClaimTypes.Email)?.Value;
+        if (userEmail is null)
+        {
+            throw new UnauthorizedException("Invalid Credentials");
+        }
+        var orderId = await createOrderService.Execute(request, userEmail);
         return Created(string.Empty, new { OrderId = orderId });
     }
 
     [HttpGet]
-    [Route("{orderId}")]
     public async Task<IActionResult> GetOrder(
-        [FromRoute] Guid orderId,
         [FromServices] GetOrderDetailsByIdService getOrderDetailsByIdService)
     {
-        var order = await getOrderDetailsByIdService.Execute(orderId);
-        return Ok(order);
+        var userEmail = HttpContext.User.FindFirst(ClaimTypes.Email)?.Value;
+        if (userEmail is null)
+        {
+            throw new UnauthorizedException("Invalid Credentials");
+        }
+        var orderDetails = await getOrderDetailsByIdService.Execute(userEmail);
+        return Ok(orderDetails);
     }
 }

@@ -20,7 +20,7 @@ public class SubProductCreatedService : IConsumer<ProductCreatedMessage>
     public async Task Consume(ConsumeContext<ProductCreatedMessage> context)
     {
         var message = context.Message;
-        MessageReceived.LogMessage($"Catched {message!.Id}");
+        MessageReceived.LogMessage($"Product Created Message Caught - ProductId:{message!.Id}");
 
         await Task.Delay(5000);
 
@@ -37,7 +37,7 @@ public class SubProductCreatedService : IConsumer<ProductCreatedMessage>
         else
         {
             await _productRepository.CreateAsync(productEntity);
-            MessageReceived.LogMessage($"New Product {productEntity.Id}");
+            MessageReceived.LogMessage($"New Product {productEntity.Id} Added");
         }
     }
 }

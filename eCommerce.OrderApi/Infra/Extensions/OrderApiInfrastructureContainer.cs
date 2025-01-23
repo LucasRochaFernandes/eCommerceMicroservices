@@ -1,5 +1,6 @@
 ﻿using eCommerce.OrderApi.Application.Services;
 using eCommerce.OrderApi.Domain.Entities;
+using eCommerce.OrderApi.Infrastructure.Database;
 using eCommerce.OrderApi.Infrastructure.Repositories;
 using eCommerce.OrderApi.Services;
 using eCommerce.SharedLibrary.Extensions;
@@ -12,10 +13,12 @@ public static class OrderApiInfrastructureContainer
     public static void AddInfrastructureServices(this IServiceCollection services, IConfiguration config)
     {
         SharedServiceContainer.AddSharedServices(services, config, "ProductApi-Infra-Logs");
+        services.AddDbContext<OrderApiDbContext>();
         services.AddMassTransit(busConfig =>
         {
             busConfig.AddConsumer<SubProductCreatedService>();
             busConfig.AddConsumer<SubProductStockUpdated>();
+            busConfig.AddConsumer<SubUserCreatedService>();
             busConfig.UsingRabbitMq((context, cfg) =>
             {
                 cfg.Host(config["RabbitMQ:Host"], h =>
@@ -27,6 +30,7 @@ public static class OrderApiInfrastructureContainer
             });
         });
         services.AddScoped<IGenericRepository<Order>, OrderRepository>();
+        services.AddScoped<IGenericRepository<User>, UserRepository>();
         services.AddScoped<IGenericRepository<Product>, ProductRepository>();
         services.AddScoped<CreateOrderService>();
         services.AddScoped<GetAllProductsService>();

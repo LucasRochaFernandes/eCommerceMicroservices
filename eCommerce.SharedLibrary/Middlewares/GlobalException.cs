@@ -17,6 +17,19 @@ public class GlobalException
         {
             await _next(context);
         }
+        catch (UnauthorizedException ex)
+        {
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            await context.Response.WriteAsync(JsonSerializer.Serialize(new
+            {
+                Title = "Unauthorized Error",
+                StatusCode = StatusCodes.Status401Unauthorized,
+                Message = "Access Denied to a Resource",
+                Details = ex.Message
+            }), CancellationToken.None);
+            LogException.LogExceptions(ex);
+        }
         catch (ConflictException ex)
         {
             context.Response.ContentType = "application/json";

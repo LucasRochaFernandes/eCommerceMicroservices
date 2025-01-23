@@ -13,14 +13,14 @@ public class GetOrderDetailsByIdService
     {
         _orderRepository = orderRepository;
     }
-    public async Task<OrderDetailsResponse> Execute(Guid id)
+    public async Task<OrderDetailsResponse> Execute(string userEmail)
     {
         var mapper = new MapperConfiguration(cfg =>
         {
             cfg.AddProfile<OrderProfile>();
         }).CreateMapper();
-        var orderEntities = await _orderRepository.FindByIdAsync(id);
-        var orderDetails = mapper.Map<OrderDetailsResponse>(orderEntities);
+        var orderEntity = await _orderRepository.GetByAsync(order => order.User.Email == userEmail);
+        var orderDetails = mapper.Map<OrderDetailsResponse>(orderEntity);
         return orderDetails;
     }
 }

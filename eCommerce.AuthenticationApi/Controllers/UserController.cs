@@ -10,9 +10,27 @@ public class UserController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Register(
         [FromBody] UserRequest request,
-        [FromServices] CreateUserService createUserService)
+        [FromServices] CreateUserService createUserService,
+        [FromServices] PubUserCreatedService pubUserCreatedService)
     {
         var result = await createUserService.Execute(request);
-        return Created(string.Empty, new { UserId = result });
+        await pubUserCreatedService.Execute(result);
+        return Created(string.Empty, new { UserId = result.Id });
+    }
+    [HttpGet]
+    public async Task<IActionResult> GetAll(
+        [FromServices] GetAllUsersService getAllUsersService)
+    {
+        var result = await getAllUsersService.Execute();
+        return Ok(result);
+    }
+    [HttpPost]
+    [Route("login")]
+    public async Task<IActionResult> Authenticate(
+        [FromBody] AuthRequest body,
+        [FromServices] AuthenticateService authService)
+    {
+        var token = await authService.Execute(body);
+        return Ok(token);
     }
 }

@@ -16,7 +16,7 @@ public class CreateUserService
         _userRepository = userRepository;
     }
 
-    public async Task<Guid> Execute(UserRequest request)
+    public async Task<User> Execute(UserRequest request)
     {
         var userAlreadyExists = await _userRepository.GetByAsync(usr => usr.Email == request.Email);
         if (userAlreadyExists != null)
@@ -25,7 +25,7 @@ public class CreateUserService
         }
         var mapper = new MapperConfiguration(cfg => cfg.AddProfile<UserProfile>()).CreateMapper();
         var userEntity = mapper.Map<User>(request);
-        var userId = await _userRepository.CreateAsync(userEntity);
-        return userId;
+        await _userRepository.CreateAsync(userEntity);
+        return userEntity;
     }
 }

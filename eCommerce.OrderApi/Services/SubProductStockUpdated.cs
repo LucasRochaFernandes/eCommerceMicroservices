@@ -19,12 +19,13 @@ public class SubProductStockUpdated : IConsumer<ProductStockUpdatedMessage>
     {
         var message = context.Message;
         var product = await _productRepository.FindByIdAsync(message.ProductId);
-        MessageReceived.LogMessage($"Catched {message!.ProductId} - New Stock");
+        MessageReceived.LogMessage($"Product Stock Updated Message Caught - " +
+            $"ProductId:{message!.ProductId}");
         if (product is not null)
         {
             product.Stock = message.NewStock;
             await _productRepository.UpdateAsync(product);
-            MessageReceived.LogMessage($"New Stock to {message!.ProductId} Product");
+            MessageReceived.LogMessage($"New Stock to ProductId:{message!.ProductId}");
         }
     }
 }

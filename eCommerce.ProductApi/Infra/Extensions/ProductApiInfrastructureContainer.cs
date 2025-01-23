@@ -1,5 +1,6 @@
 ﻿using eCommerce.ProductApi.Application.Services;
 using eCommerce.ProductApi.Domain.Entities;
+using eCommerce.ProductApi.Infrastructure.Database;
 using eCommerce.ProductApi.Infrastructure.Repositories;
 using eCommerce.ProductApi.Services;
 using eCommerce.SharedLibrary.Extensions;
@@ -12,6 +13,7 @@ public static class ProductApiInfrastructureContainer
     public static void AddInfrastructureServices(this IServiceCollection services, IConfiguration config)
     {
         SharedServiceContainer.AddSharedServices(services, config, "ProductApi-Infra-Logs");
+        services.AddSingleton<MongoDbService>();
         services.AddMassTransit(busConfig =>
         {
             busConfig.UsingRabbitMq((context, cfg) =>
