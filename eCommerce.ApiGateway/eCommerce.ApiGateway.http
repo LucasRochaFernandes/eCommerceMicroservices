@@ -1,0 +1,6 @@
+@eCommerce.ApiGateway_HostAddress = http://localhost:5118
+
+GET {{eCommerce.ApiGateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -31,6 +31,6 @@ public static class SharedServiceContainer
         app.UseMiddleware<GlobalException>();
         app.UseAuthentication();
         app.UseAuthorization();
-        //app.UseMiddleware<RequireApiGateway>();
+        app.UseMiddleware<RequireApiGateway>();
     }
 }

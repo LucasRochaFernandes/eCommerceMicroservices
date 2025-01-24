@@ -7,7 +7,6 @@ using System.Security.Claims;
 
 namespace eCommerce.OrderApi.Controllers;
 
-[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class OrderController : ControllerBase

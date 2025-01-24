@@ -1,9 +1,11 @@
 ﻿using eCommerce.OrderApi.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eCommerce.OrderApi.Controllers;
 [Route("api/[controller]")]
 [ApiController]
+[AllowAnonymous]
 public class ProductController : ControllerBase
 {
     [HttpGet]

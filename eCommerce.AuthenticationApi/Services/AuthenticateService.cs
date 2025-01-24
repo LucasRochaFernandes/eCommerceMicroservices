@@ -41,9 +41,7 @@ public class AuthenticateService
             new Claim(ClaimTypes.Name, user.Email)
         };
         var token = new JwtSecurityToken(
-            issuer: _config["JwtSettings:Issuer"],
-            audience: _config["JwtSettings:Audience"],
-            Claims,
+            claims: Claims,
             expires: DateTime.Now.AddMinutes(60),
             signingCredentials: credentials
         );

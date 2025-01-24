@@ -1,14 +1,17 @@
 ﻿using eCommerce.ProductApi.Application.Services;
 using eCommerce.ProductApi.Communication.Requests;
 using eCommerce.ProductApi.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eCommerce.ProductApi.Controllers;
 [Route("api/[controller]")]
 [ApiController]
+[AllowAnonymous]
 public class ProductController : ControllerBase
 {
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Post(
         [FromBody] ProductRequest body,
         [FromServices] CreateProductService createProductService,
@@ -25,6 +28,7 @@ public class ProductController : ControllerBase
     }
     [HttpDelete]
     [Route("{productId}")]
+    [Authorize]
     public async Task<IActionResult> Delete(
         [FromRoute] Guid productId,
         [FromServices] RemoveProductService removeProductService)
@@ -33,6 +37,7 @@ public class ProductController : ControllerBase
         return Ok();
     }
     [HttpPatch("{productId}/stock")]
+    [Authorize]
     public async Task<IActionResult> UpdateStock(
         [FromRoute] Guid productId,
         [FromBody] NewProductStockRequest body,
