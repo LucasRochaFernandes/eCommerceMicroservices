@@ -1,2 +1,8 @@
 2025-01-23 18:25:49.519 -03:00 [INF] User Created Message Caught - UserId:0517e642-65c6-4856-80a5-c0ee6d310b08
 2025-01-23 18:25:49.542 -03:00 [INF] User Added - UserId:0517e642-65c6-4856-80a5-c0ee6d310b08
+2025-01-23 19:43:18.059 -03:00 [INF] eCommerce.OrderApi.Communication.Responses.OrderDetailsResponse needs to have a constructor with 0 args or only optional args. Validate your configuration for details. (Parameter 'type')
+2025-01-23 19:43:18.083 -03:00 [WRN] eCommerce.OrderApi.Communication.Responses.OrderDetailsResponse needs to have a constructor with 0 args or only optional args. Validate your configuration for details. (Parameter 'type')
+2025-01-23 20:02:18.856 -03:00 [INF] eCommerce.OrderApi.Communication.Responses.OrderDetailsResponse needs to have a constructor with 0 args or only optional args. Validate your configuration for details. (Parameter 'type')
+2025-01-23 20:02:18.879 -03:00 [WRN] eCommerce.OrderApi.Communication.Responses.OrderDetailsResponse needs to have a constructor with 0 args or only optional args. Validate your configuration for details. (Parameter 'type')
+2025-01-23 23:07:50.070 -03:00 [INF] eCommerce.OrderApi.Communication.Responses.OrderDetailsResponse needs to have a constructor with 0 args or only optional args. Validate your configuration for details. (Parameter 'type')
+2025-01-23 23:07:50.096 -03:00 [WRN] eCommerce.OrderApi.Communication.Responses.OrderDetailsResponse needs to have a constructor with 0 args or only optional args. Validate your configuration for details. (Parameter 'type')

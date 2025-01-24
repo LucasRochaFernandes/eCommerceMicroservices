@@ -40,7 +40,11 @@ public class OrderRepository : IGenericRepository<Order>
 
     public async Task<Order?> GetByAsync(Expression<Func<Order, bool>> predicate)
     {
-        return await _dbContext.Orders.FirstOrDefaultAsync(predicate);
+        return await _dbContext.Orders
+            .Include(order => order.User)
+            .Include(order => order.OrderProducts)
+                .ThenInclude(orderProd => orderProd.Product)
+            .FirstOrDefaultAsync(predicate);
     }
 
     public async Task UpdateAsync(Order entity)

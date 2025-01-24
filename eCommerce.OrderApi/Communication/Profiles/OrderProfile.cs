@@ -11,12 +11,13 @@ public class OrderProfile : Profile
         CreateMap<Order, OrderDetailsResponse>()
             .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.User.Email))
             .ForMember(dest => dest.CEP, opt => opt.MapFrom(src => src.User.CEP))
-            .ForMember(dest => dest.OrderDateTime, opt => opt.MapFrom(src => src.OrderDateTime))
             .ForMember(dest => dest.FullAddress, opt => opt.MapFrom(src => src.User.FullAddress))
-            .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.OrderProducts.Select(
-                prod => new ProductOrderResponse(prod.ProductId, prod.Quantity))))
-            .ForMember(dest => dest.TotalPrice, opt => opt.MapFrom(src => src.OrderProducts.Select(
-                prod => prod.Product.Price * prod.Quantity).Sum()));
+            .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.User.PhoneNumber))
+            .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.OrderProducts.Select(op => new ProductOrderResponse(op.ProductId, op.Quantity)).ToList()))
+            .ForMember(dest => dest.TotalPrice, opt => opt.MapFrom(src => src.OrderProducts.Sum(op => op.Quantity * op.Product.Price)))
+            .ForMember(dest => dest.OrderDateTime, opt => opt.MapFrom(src => src.OrderDateTime))
+            .ForMember(dest => dest.PaymentStatus, opt => opt.MapFrom(src => src.PaymentStatus))
+            .ForMember(dest => dest.OrderStatus, opt => opt.MapFrom(src => src.OrderStatus));
 
         CreateMap<CreateOrderRequest, Order>()
             .ForMember(dest => dest.OrderProducts, opt => opt.MapFrom(src => src.Products));
