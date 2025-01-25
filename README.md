@@ -1,50 +1,147 @@
 
-# eCommerce Microservices
+# eCommerce Microservices Project
 
-This project demonstrates the implementation of an eCommerce system using .NET 8 with a microservices architecture. It is designed to showcase skills with technologies and concepts such as MassTransit, RabbitMQ, MongoDB, SQL Server, and middleware/shared services in .NET.
+This project is designed to help you practice building microservices using .NET. The application consists of three main services:
 
-## Project Structure
+- **OrderApi**
+- **ProductApi**
+- **AuthenticationApi**
 
-The solution consists of the following components:
+The services communicate with each other through a messaging system implemented with **MassTransit** and **RabbitMQ**. An **API Gateway** using **Ocelot** is used to access these services, with caching enabled to improve performance.
 
-### 1. eCommerce.ProductApi
-- **Purpose:** Manages products (CRUD operations).
-- **Database:** MongoDB.
-- **Features:** Provides endpoints to create, read, update, and delete products.
+## Architecture
 
-### 2. eCommerce.OrderApi
-- **Purpose:** Creates orders with products managed by ProductApi.
-- **Database:** SQL Server.
-- **Features:** Handles order creation and management.
+- **OrderApi**
+  - **Purpose**: Manages orders in the eCommerce application.
+  - **Database**: SQL Server.
+  - **Authentication**: Requires JWT (JSON Web Token) for authorization. Tokens must be included in the `Authorization` header as type `Bearer`.
+  - **Features**:
+    - Uses **Entity Framework Core** for data access.
+    - Subscribes to RabbitMQ messages to register new users or products from AuthenticationApi and ProductApi respectively.
 
-### 3. eCommerce.SharedLibrary
-- **Purpose:** Contains reusable components shared across the microservices, such as:
-  - Standardized logging formats.
-  - Middleware components.
-  - Common services.
+- **AuthenticationApi**
+  - **Purpose**: Manages user authentication and registration.
+  - **Database**: MongoDB.
+  - **Features**:
+    - Uses **MongoDB.Driver** for database operations.
+    - Generates JWT tokens for user authentication.
+    - Publishes messages to RabbitMQ to inform other services about new users.
 
-## Communication Between Services
-The services communicate using **MassTransit** with **RabbitMQ** as the message broker, ensuring reliable and efficient asynchronous messaging.
+- **ProductApi**
+  - **Purpose**: Manages product information in the eCommerce application.
+  - **Database**: MongoDB.
+  - **Features**:
+    - Uses **MongoDB.Driver** for database operations.
+    - Publishes messages to RabbitMQ to notify other services when products are created or updated.
+
+## API Gateway
+
+The API Gateway is implemented with **Ocelot** to route requests to the appropriate microservices. It includes caching to improve performance and rate limiting to manage traffic.
+
+### Example Route Configuration
+
+```json
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/Order/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5010
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Order/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "FileCacheOptions": {
+        "TtlSeconds": 60,
+        "Region": "Orders"
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/Product/{Everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Product/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "FileCacheOptions": {
+        "TtlSeconds": 120,
+        "Region": "Products"
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/User/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5100
+        }
+      ],
+      "UpstreamPathTemplate": "/api/User/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "Limit": 100
+      }
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:5002",
+    "RateLimitOptions": {
+      "EnableRateLimiting": true,
+      "QuotaExceededMessage": "You have reached the limit of requests allowed"
+    },
+    "FileCacheOptions": {
+      "TtlSeconds": 300
+    }
+  }
+}
+```
 
 ## Technologies Used
-- **.NET 8**
-- **MongoDB** (for ProductApi)
-- **SQL Server** (for OrderApi)
-- **MassTransit** and **RabbitMQ** (for service communication)
-- **Shared Middlewares and Services**
 
-## Purpose of the Project
-This project is a practical demonstration of my knowledge in:
-- Building microservices in .NET.
-- Integrating different databases (SQL Server and MongoDB).
-- Using MassTransit with RabbitMQ for communication between microservices.
-- Designing shared libraries for reusable components.
+- **.NET 8** for building microservices.
+- **Ocelot** for API Gateway implementation.
+- **MassTransit** and **RabbitMQ** for messaging between services.
+- **MongoDB** for AuthenticationApi and ProductApi databases.
+- **SQL Server** for OrderApi database.
+- **JWT** for secure authentication and authorization.
+- **EF Core** for ORM in OrderApi.
 
-## How to Run
-1. Ensure MongoDB and SQL Server are running and accessible.
-2. Set up RabbitMQ as the message broker.
-3. Build and run the solution.
-4. Test the APIs using tools like Postman or Swagger UI.
+## Diagram
 
----
-*Created to demonstrate proficiency with microservices and .NET development.*
+![Architecture Diagram](./eCommerce.png)
+
+## How to Run the Project
+
+1. **Set Up RabbitMQ**
+   - Install RabbitMQ and ensure it is running locally.
+
+2. **Configure Databases**
+   - Set up MongoDB for AuthenticationApi and ProductApi.
+   - Set up SQL Server for OrderApi.
+
+3. **Start the Services**
+   - Run each microservice individually.
+
+4. **Run the API Gateway**
+   - Configure and start the Ocelot Gateway.
+
+5. **Test the Endpoints**
+   - Use tools like Postman to test the API Gateway and individual microservices.
