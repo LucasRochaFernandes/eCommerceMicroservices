@@ -9,6 +9,11 @@ This project is designed to help you practice building microservices using .NET.
 
 The services communicate with each other through a messaging system implemented with **MassTransit** and **RabbitMQ**. An **API Gateway** using **Ocelot** is used to access these services, with caching enabled to improve performance.
 
+## Diagram
+
+![Architecture Diagram](./eCommerce.png)
+
+
 ## Architecture
 
 - **OrderApi**
@@ -124,9 +129,7 @@ The API Gateway is implemented with **Ocelot** to route requests to the appropri
 - **JWT** for secure authentication and authorization.
 - **EF Core** for ORM in OrderApi.
 
-## Diagram
 
-![Architecture Diagram](./eCommerce.png)
 
 ## How to Run the Project
 
@@ -134,8 +137,8 @@ The API Gateway is implemented with **Ocelot** to route requests to the appropri
    - Install RabbitMQ and ensure it is running locally.
 
 2. **Configure Databases**
-   - Set up MongoDB for AuthenticationApi and ProductApi.
-   - Set up SQL Server for OrderApi.
+   - Set up MongoDB for AuthenticationApi and ProductApi (docker compose).
+   - Set up SQL Server for OrderApi (docker compose).
 
 3. **Start the Services**
    - Run each microservice individually.
