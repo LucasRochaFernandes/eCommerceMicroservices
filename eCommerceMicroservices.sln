@@ -19,6 +19,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eCommerce.AuthenticationApi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eCommerce.ApiGateway", "eCommerce.ApiGateway\eCommerce.ApiGateway.csproj", "{3B69EC9C-2ED0-4D5B-86BB-34FA38CFE2FB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{65177061-1B03-4A35-A2BF-69B24F6CEE13}"
+	ProjectSection(SolutionItems) = preProject
+		k8s\volumes.yaml = k8s\volumes.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

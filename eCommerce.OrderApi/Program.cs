@@ -1,7 +1,6 @@
 using eCommerce.OrderApi.Infrastructure.Extensions;
 using eCommerce.SharedLibrary.Extensions;
 using Microsoft.OpenApi.Models;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
@@ -11,8 +10,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Order API", Version = "v1" });
-
-    // Configurar o esquema de autenticação Bearer Token
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",

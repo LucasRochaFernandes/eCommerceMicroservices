@@ -7,13 +7,4 @@ Content-Type: application/json
   "password": "Lucas222"
 }
 
-###
-GET https://localhost:5002/api/User
-Content-Type: application/json
-
-{
-  "email": "seu_usuario",
-  "password": "sua_senha"
-}
-
 

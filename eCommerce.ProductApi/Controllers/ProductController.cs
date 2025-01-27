@@ -3,6 +3,7 @@ using eCommerce.ProductApi.Communication.Requests;
 using eCommerce.ProductApi.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace eCommerce.ProductApi.Controllers;
 [Route("api/[controller]")]
@@ -22,8 +23,11 @@ public class ProductController : ControllerBase
         return Created(string.Empty, new { Id = result });
     }
     [HttpGet]
-    public async Task<IActionResult> GetAll([FromServices] GetAllProductsService getAllProductsService)
+    public async Task<IActionResult> GetAll(
+        [FromServices] GetAllProductsService getAllProductsService,
+        IMemoryCache cache)
     {
+
         return Ok(await getAllProductsService.Execute());
     }
     [HttpDelete]
