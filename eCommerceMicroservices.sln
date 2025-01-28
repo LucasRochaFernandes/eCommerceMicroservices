@@ -20,8 +20,17 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eCommerce.ApiGateway", "eCommerce.ApiGateway\eCommerce.ApiGateway.csproj", "{3B69EC9C-2ED0-4D5B-86BB-34FA38CFE2FB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{65177061-1B03-4A35-A2BF-69B24F6CEE13}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RabbitMQ", "RabbitMQ", "{D0E5DE20-29B3-4ED3-828F-3122D090F0D2}"
 	ProjectSection(SolutionItems) = preProject
-		k8s\volumes.yaml = k8s\volumes.yaml
+		rabbitmq-deployment.yaml = rabbitmq-deployment.yaml
+		rabbitmq-service.yaml = rabbitmq-service.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProductApi", "ProductApi", "{9DF4DEA2-5F07-4F6B-92AE-64966ED2EAF7}"
+	ProjectSection(SolutionItems) = preProject
+		productapi-deployment.yaml = productapi-deployment.yaml
+		productapi-service.yaml = productapi-service.yaml
 	EndProjectSection
 EndProject
 Global
@@ -53,5 +62,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D0E5DE20-29B3-4ED3-828F-3122D090F0D2} = {65177061-1B03-4A35-A2BF-69B24F6CEE13}
+		{9DF4DEA2-5F07-4F6B-92AE-64966ED2EAF7} = {65177061-1B03-4A35-A2BF-69B24F6CEE13}
 	EndGlobalSection
 EndGlobal

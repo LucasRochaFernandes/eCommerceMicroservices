@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: productapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: productapi-pod
+  template:
+    metadata:
+      name: productapi-pod
+      labels:
+        app: productapi-pod
+    spec:
+      containers:
+      - name: productapi-container
+        image: productapi # Change this to your registry image
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5001
+        env:
+        - name: MongoDB__ConnectionString
+          value: "mongodb://admin:admin@mongodb:27017"
+        - name: Redis__ConnectionString
+          value: "redis:6379"
+        - name: RabbitMQ__Host
+          value: "rabbitmq"
+
+
