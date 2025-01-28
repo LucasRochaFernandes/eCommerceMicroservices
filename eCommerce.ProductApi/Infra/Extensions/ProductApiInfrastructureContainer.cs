@@ -3,6 +3,7 @@ using eCommerce.ProductApi.Domain.Entities;
 using eCommerce.ProductApi.Infrastructure.Database;
 using eCommerce.ProductApi.Infrastructure.Repositories;
 using eCommerce.ProductApi.Services;
+using eCommerce.ProductApi.Services.Interfaces;
 using eCommerce.SharedLibrary.Extensions;
 using eCommerce.SharedLibrary.Interfaces;
 using MassTransit;
@@ -27,6 +28,7 @@ public static class ProductApiInfrastructureContainer
             });
 
         });
+        services.AddScoped<ICacheService, RedisCacheService>();
         services.AddScoped<IGenericRepository<Product>, ProductRepository>();
         services.AddScoped<CreateProductService>();
         services.AddScoped<UpdateProductStockService>();

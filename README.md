@@ -13,7 +13,6 @@ The services communicate with each other through a messaging system implemented 
 
 ![Architecture Diagram](./eCommerce.png)
 
-
 ## Architecture
 
 - **OrderApi**
@@ -38,6 +37,7 @@ The services communicate with each other through a messaging system implemented 
   - **Features**:
     - Uses **MongoDB.Driver** for database operations.
     - Publishes messages to RabbitMQ to notify other services when products are created or updated.
+    - Implements **Redis** for caching product data to improve performance.
 
 ## API Gateway
 
@@ -126,10 +126,9 @@ The API Gateway is implemented with **Ocelot** to route requests to the appropri
 - **MassTransit** and **RabbitMQ** for messaging between services.
 - **MongoDB** for AuthenticationApi and ProductApi databases.
 - **SQL Server** for OrderApi database.
+- **Redis** for caching product data in ProductApi.
 - **JWT** for secure authentication and authorization.
 - **EF Core** for ORM in OrderApi.
-
-
 
 ## How to Run the Project
 
@@ -139,6 +138,7 @@ The API Gateway is implemented with **Ocelot** to route requests to the appropri
 2. **Configure Databases**
    - Set up MongoDB for AuthenticationApi and ProductApi (docker compose).
    - Set up SQL Server for OrderApi (docker compose).
+   - Configure Redis for caching in ProductApi.
 
 3. **Start the Services**
    - Run each microservice individually.
