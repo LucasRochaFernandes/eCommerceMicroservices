@@ -14,12 +14,18 @@ public static class ProductApiInfrastructureContainer
     public static void AddInfrastructureServices(this IServiceCollection services, IConfiguration config)
     {
         SharedServiceContainer.AddSharedServices(services, config, "ProductApi-Infra-Logs");
-        services.AddSingleton<MongoDbService>();
+
+        var rabbitMQHost = Environment.GetEnvironmentVariable("RabbitMQ__Host");
+
+        if (string.IsNullOrEmpty(rabbitMQHost))
+        {
+            rabbitMQHost = config["RabbitMQ:Host"];
+        }
         services.AddMassTransit(busConfig =>
         {
             busConfig.UsingRabbitMq((context, cfg) =>
             {
-                cfg.Host(config["RabbitMQ:Host"], h =>
+                cfg.Host(rabbitMQHost, h =>
                 {
                     h.Username(config["RabbitMq:Username"]!);
                     h.Password(config["RabbitMq:Password"]!);
@@ -28,6 +34,19 @@ public static class ProductApiInfrastructureContainer
             });
 
         });
+
+        var redisHost = Environment.GetEnvironmentVariable("Redis__Host");
+        if (string.IsNullOrEmpty(redisHost))
+        {
+            redisHost = "localhost:6379";
+        }
+
+        services.AddStackExchangeRedisCache(options =>
+        {
+            options.Configuration = redisHost;
+            options.InstanceName = "ProductApi";
+        });
+
         services.AddScoped<ICacheService, RedisCacheService>();
         services.AddScoped<IGenericRepository<Product>, ProductRepository>();
         services.AddScoped<CreateProductService>();
@@ -36,6 +55,7 @@ public static class ProductApiInfrastructureContainer
         services.AddScoped<PubProductStockUpdated>();
         services.AddScoped<GetAllProductsService>();
         services.AddScoped<RemoveProductService>();
+        services.AddSingleton<MongoDbService>();
     }
 
     public static void AddInfrastructurePolicy(this IApplicationBuilder app)

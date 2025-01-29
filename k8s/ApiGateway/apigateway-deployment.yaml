@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apigateway-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apigateway-pod
+  template:
+    metadata:
+      name: apigateway-pod
+      labels:
+        app: apigateway-pod
+    spec:
+      containers:
+      - name: apigateway-container
+        image: apigateway # Change this to your registry image
+        ports:
+        - containerPort: 5000
+        env:
+        - name: SVC_Kubernetes
+          value: 1
+
+

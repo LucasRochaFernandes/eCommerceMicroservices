@@ -8,8 +8,14 @@ public class MongoDbService
 
     public MongoDbService(IConfiguration configuration)
     {
+
         _configuration = configuration;
-        var mongoUrl = MongoUrl.Create(_configuration.GetConnectionString("MongoDb"));
+        var mongoDbHost = Environment.GetEnvironmentVariable("MongoDb__Host");
+        if (string.IsNullOrEmpty(mongoDbHost))
+        {
+            mongoDbHost = _configuration["MongoDb:Host"];
+        }
+        var mongoUrl = MongoUrl.Create(mongoDbHost);
         var mongoClient = new MongoClient(mongoUrl);
         _database = mongoClient.GetDatabase(mongoUrl.DatabaseName);
     }

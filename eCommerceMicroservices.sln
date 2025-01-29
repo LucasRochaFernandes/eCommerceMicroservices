@@ -23,14 +23,32 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{65177061-1B0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RabbitMQ", "RabbitMQ", "{D0E5DE20-29B3-4ED3-828F-3122D090F0D2}"
 	ProjectSection(SolutionItems) = preProject
-		rabbitmq-deployment.yaml = rabbitmq-deployment.yaml
-		rabbitmq-service.yaml = rabbitmq-service.yaml
+		k8s\RabbitMQ\rabbitmq-deployment.yaml = k8s\RabbitMQ\rabbitmq-deployment.yaml
+		k8s\RabbitMQ\rabbitmq-service.yaml = k8s\RabbitMQ\rabbitmq-service.yaml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProductApi", "ProductApi", "{9DF4DEA2-5F07-4F6B-92AE-64966ED2EAF7}"
 	ProjectSection(SolutionItems) = preProject
-		productapi-deployment.yaml = productapi-deployment.yaml
-		productapi-service.yaml = productapi-service.yaml
+		k8s\ProductApi\productapi-deployment.yaml = k8s\ProductApi\productapi-deployment.yaml
+		k8s\ProductApi\productapi-service.yaml = k8s\ProductApi\productapi-service.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateway", "ApiGateway", "{54764023-455E-4B8C-BFD4-879A27632FC7}"
+	ProjectSection(SolutionItems) = preProject
+		k8s\ApiGateway\apigateway-deployment.yaml = k8s\ApiGateway\apigateway-deployment.yaml
+		k8s\ApiGateway\apigateway-service.yaml = k8s\ApiGateway\apigateway-service.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MongoDb", "MongoDb", "{8FB138D3-4EA0-44AC-A32F-AE5E25B7CD78}"
+	ProjectSection(SolutionItems) = preProject
+		k8s\MongoDb\mongodb-productapi-deployment.yaml = k8s\MongoDb\mongodb-productapi-deployment.yaml
+		k8s\MongoDb\mongodb-productapi-service.yaml = k8s\MongoDb\mongodb-productapi-service.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Redis", "Redis", "{681EC571-78BF-44A1-AD97-B7C1CC75ACFF}"
+	ProjectSection(SolutionItems) = preProject
+		k8s\Redis\redis-productapi-deployment.yaml = k8s\Redis\redis-productapi-deployment.yaml
+		k8s\Redis\redis-productapi-service.yaml = k8s\Redis\redis-productapi-service.yaml
 	EndProjectSection
 EndProject
 Global
@@ -66,5 +84,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{D0E5DE20-29B3-4ED3-828F-3122D090F0D2} = {65177061-1B03-4A35-A2BF-69B24F6CEE13}
 		{9DF4DEA2-5F07-4F6B-92AE-64966ED2EAF7} = {65177061-1B03-4A35-A2BF-69B24F6CEE13}
+		{54764023-455E-4B8C-BFD4-879A27632FC7} = {65177061-1B03-4A35-A2BF-69B24F6CEE13}
+		{8FB138D3-4EA0-44AC-A32F-AE5E25B7CD78} = {65177061-1B03-4A35-A2BF-69B24F6CEE13}
+		{681EC571-78BF-44A1-AD97-B7C1CC75ACFF} = {65177061-1B03-4A35-A2BF-69B24F6CEE13}
 	EndGlobalSection
 EndGlobal

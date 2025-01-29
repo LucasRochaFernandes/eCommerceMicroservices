@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: productapi
+  name: productapi-deployment
 spec:
   replicas: 1
   selector:
@@ -20,11 +20,10 @@ spec:
         ports:
         - containerPort: 5001
         env:
-        - name: MongoDB__ConnectionString
-          value: "mongodb://admin:admin@mongodb:27017"
-        - name: Redis__ConnectionString
-          value: "redis:6379"
         - name: RabbitMQ__Host
-          value: "rabbitmq"
-
+          value: "amqp://rabbitmq-svc:5672"
+        - name: MongoDb__Host
+          value: "mongodb://mongodb-svc/ProductApiDb"
+        - name: Redis__Host
+          value: "redis-svc:6379"
 
